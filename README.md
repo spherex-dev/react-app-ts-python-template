@@ -18,6 +18,7 @@ The required node packages will be installed will be installed using `yarn`. How
 the `backend` directory will contain the python code which runs a [sanic](https://sanic.dev/) server to run the backend service. Sanic is very similar to flask, however is based on async code which uses the `uvloop` which is very performant.
 
 If you are developing with vscode, you may wish to run `yarn dlx @yarnpkg/sdks vscode`. Vscode will then prompt to ask you to use the extension, which you should say yes to so remove linting errors when looking at the typescript code.
+
 ## Demo Code
 
 Before running this application, ensure that the backend is running by calling `yarn start-sanic-test`. The test version of the sanic server that allows permissive `CORS` access will allow your local running instance of the react page to communicate with the backend server. The backend server will also have an `auto_reload` flag set when running in testing mode will whill allow for rapid development.
@@ -40,3 +41,5 @@ The following block of code has been removed from `package.json` as this causes 
     ]
   },
 ```
+
+Problems with `"@testing-library/jest-dom": "^5.14.1",` being in the normal dependency location resulted in `expect(linkElement).toBeInTheDocument();` not rending properly in `App.test.tsx` when running `yarn start`. This was resolved by `yarn remove @testing-library/jest-dom` and performing a `yarn add -D @testing-library/jest-dom` which move this to a devDependency instead. This also added `@types/testing-library__jest-dom` as a devDependency.
